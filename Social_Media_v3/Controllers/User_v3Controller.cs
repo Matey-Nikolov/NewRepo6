@@ -42,9 +42,14 @@ namespace Social_Media_v3.Controllers
        {
             id = TempData["id"];
 
-            var user = _context.Users.First(x => x.UserName == from);
 
-            if (user.UserName == from)
+            var user = _context.Users.FirstOrDefault(x => x.UserName == from);
+
+            if (user == null)
+            {
+                ModelState.AddModelError("from", "You cannot send a message to non-existent user!");
+            }
+            else if (user.UserName == from)
             {
                 ModelState.AddModelError("messageTitle", "You cannot send a message to yourself!");
             }
@@ -55,12 +60,17 @@ namespace Social_Media_v3.Controllers
             {
                 sb.Append(user.MessageText + " \n" + messageText);
             }
+            else
+            {
+                sb.Append(messageText);
+            }
 
             foreach (var userFind in _context.Users)
             {
                 if (userFind.Id == (int)id)
                 {
                     user.From = userFind.UserName;
+                    _context.SaveChangesAsync();
                 }
             }
 
@@ -91,6 +101,10 @@ namespace Social_Media_v3.Controllers
                     return RedirectToAction("Login2");
                 }
             }
+
+            ModelState.AddModelError("UserName", "Not a full name or non-existent user.");
+            ModelState.AddModelError("password", "incorrect password.");
+
             return View();
         }
 
@@ -117,6 +131,7 @@ namespace Social_Media_v3.Controllers
 
             return View(objectsUserList);
         }
+
 
         // GET: User_v3
         public async Task<IActionResult> Index()
@@ -161,17 +176,17 @@ namespace Social_Media_v3.Controllers
             {
                 if (item.UserName == user_v3.UserName && user_v3.Password == item.Password)
                 {
-                    ModelState.AddModelError("UserName", "Already exists");
+                    ModelState.AddModelError("UserName", "Already exists.");
                 }
                 else if (user_v3.Password == item.Password)
                 {
-                    ModelState.AddModelError("Password", "Already exists");
+                    ModelState.AddModelError("Password", "Already exists.");
                 }
                 else if (user_v3.UserName == item.UserName)
                 {
-                    ModelState.AddModelError("UserName", "Already exists");
+                    ModelState.AddModelError("UserName", "Already exists.");
                 }
-                TempData["id"] = item.Id;
+
             }
 
 
@@ -179,7 +194,7 @@ namespace Social_Media_v3.Controllers
             {
                 _context.Add(user_v3);
                 await _context.SaveChangesAsync();
-
+                TempData["id"] = user_v3.Id;
 
                 return RedirectToAction("ProfileIndex");
             }
