@@ -35,6 +35,7 @@ namespace Social_Media_v3.Controllers
             return View();
         }
 
+        //Post
         [HttpPost]
         [ValidateAntiForgeryToken]
        public IActionResult CreateMessage(User_v3 objectUser, string from, string messageText, object? id) // To
