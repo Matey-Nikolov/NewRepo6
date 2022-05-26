@@ -61,7 +61,6 @@ namespace Social_Media_v3.Controllers
                 if (userFind.Id == (int)id)
                 {
                     user.From = userFind.UserName;
-                    _context.SaveChangesAsync();
                 }
             }
 
