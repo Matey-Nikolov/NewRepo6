@@ -1,0 +1,39 @@
+﻿@model IEnumerable<User_v3>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Users communication</h1>
+
+
+<table class="table table-bordered table-striped" style="width: 100%">
+        <thead>
+            <tr>
+                <th>User name</th>
+                <th>Message from</th>
+                <th>Message text</th>
+            </tr>
+            <div class="row pt-4">
+                <div class="col-6">
+                    <h2 class="text-primary">Users list</h2>
+                </div>
+                <div class="col-6 text-end">
+                </div>
+            </div>
+        </thead>
+        <tbody>
+        @foreach(var obj in Model)
+        {
+            @if (@obj.MessageText != null)
+            {
+            <tr>
+                <td width="50%">@obj.UserName</td>
+                <td width="50%">@obj.From</td>
+                <td width="50%">@obj.MessageText</td>
+            </tr>
+            }
+
+        }
+        </tbody>
+</table>

@@ -1,0 +1,47 @@
+﻿@model IEnumerable<User_v3>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Profile</h1>
+
+
+<table class="table table-bordered table-striped" style="width: 100%">
+        <thead>
+            <tr>
+                <th>User name</th>
+                <th>Bio</th>
+                <th>Messege from</th>
+                <th>Messege text</th>
+            </tr>
+            <div class="row pt-4">
+                <div class="col-6">
+                    <h2 class="text-primary">Users list</h2>
+                </div>
+                <div class="col-6 text-end">
+
+                @foreach(var item in Model)
+                {
+                    <a asp-controller="User_v3" asp-action="CreateMessage" asp-route-id="@item.Id">Message</a>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                }
+                </div>
+            </div>
+        </thead>
+        <tbody>
+            @foreach(var obj in Model)
+            {
+                <tr>
+                    <td width="50%">@obj.UserName</td>
+                    <td width="50%">@obj.Bio</td>
+
+                    @if(obj.MessageText != null){ // MessageTitle
+                        <td width="50%">@obj.MessageTitle</td>
+                        <td width="50%">@obj.MessageText</td>
+
+                }
+            </tr>
+            }
+        </tbody>
+</table>

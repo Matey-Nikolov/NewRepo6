@@ -1,0 +1,31 @@
+﻿@model User_v3
+
+<form method="post" asp-action="Login">
+
+    <div class="border p-3 mt-4">
+        <div class="row pb-2">
+            <h2 class="text-primary">Login</h2>
+            <hr/>
+        </div>
+
+        @*<div asp-validation-summary="All"></div>*@
+
+        <div class="mb-3">
+            <label asp-for="UserName"></label>
+            <input asp-for="UserName" class="form-control" />
+        </div>
+        
+        <div class="mb-3">
+            <label asp-for="Password"></label>
+            <input asp-for="Password" class="form-control" />
+        </div>
+            <button type="submit" class="btn btn-primary" style="width:150px">Login</button>
+            <a asp-controller="Home" asp-action="Index" class="btn btn-secondary" style="width:150px">Back to main</a>
+    </div>
+</form>
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

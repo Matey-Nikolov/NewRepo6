@@ -1,0 +1,30 @@
+﻿@model User_v3
+
+<form method="post" asp-action="CreateMessage">
+    <div class="border p-3 mt-4">
+        <div class="row pb-2">
+            <h2 class="text-primary">Send message</h2>
+            <hr/>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="From">Send message to</label>
+            <input type="text" asp-for="From" class="form-control" />
+             <span asp-validation-for="From" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="MessageText">Send message</label>
+            <input type="text" asp-for="MessageText" class="form-control" />
+        </div>
+        <div>
+            <button type="submit" class="btn btn-primary" style="width:150px">Send message</button>
+            <a asp-controller="User_v3" asp-action="ProfileIndex" class="btn btn-secondary" style="width:150px">Back to account</a>
+        </div>
+    </div>
+</form>
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}
