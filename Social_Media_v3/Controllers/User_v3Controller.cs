@@ -47,11 +47,11 @@ namespace Social_Media_v3.Controllers
 
             if (user == null)
             {
-                ModelState.AddModelError("from", "You cannot send a message to non-existent user!");
+                ModelState.AddModelError("From", "You cannot send a message to non-existent user!");
             }
             else if (user.UserName == from)
             {
-                ModelState.AddModelError("messageTitle", "You cannot send a message to yourself!");
+                ModelState.AddModelError("MessageText", "You cannot send a message to yourself!");
             }
 
             StringBuilder sbText = new StringBuilder();
