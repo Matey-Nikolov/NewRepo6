@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "Index";
 }
-
+    
 <h1>Profile</h1>
 
 
@@ -23,10 +23,9 @@
 
                 @foreach(var item in Model)
                 {
-                    <a asp-controller="User_v3" asp-action="CreateMessage" asp-route-id="@item.Id">Message</a>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete account</a>
-
+                    <a asp-controller="User_v3" asp-action="CreateMessage" asp-route-id="@item.Id" class="btn btn-outline-success">Message</a>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-info" >Edit</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger">Delete account</a>
                 }
                 </div>
             </div>

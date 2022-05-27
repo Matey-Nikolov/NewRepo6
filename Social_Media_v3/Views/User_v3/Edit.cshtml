@@ -29,14 +29,18 @@
                 <span asp-validation-for="Bio" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Save" class="btn btn-outline-success" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to account</a>
+    <form asp-action="Edit">
+        <input type="hidden" asp-for="Id" class="btn btn-outline-info">
+        <button type="submit" value="Back to account" class="btn btn-outline-info">Back to account</button>
+    </form>
+
 </div>
 
 @section Scripts {

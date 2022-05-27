@@ -8,7 +8,7 @@ namespace Social_Media_v3.Models
         public int Id { get; set; }
 
         [Required]
-        [StringLength(24)]
+        [StringLength(18, ErrorMessage = "Name length can't be more than 18.")]
         [Display(Name = "User name")]
         public string UserName { get; set; }
         

@@ -54,27 +54,39 @@ namespace Social_Media_v3.Controllers
                 ModelState.AddModelError("messageTitle", "You cannot send a message to yourself!");
             }
 
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sbText = new StringBuilder();
+            StringBuilder sbFrom = new StringBuilder();
 
             if (user.MessageText != null)
             {
-                sb.Append(user.MessageText + " \n" + messageText);
+                sbText.Append(user.MessageText + " \n" + messageText);
+
             }
             else
             {
-                sb.Append(messageText);
+                sbText.Append(messageText);
             }
 
             foreach (var userFind in _context.Users)
             {
                 if (userFind.Id == (int)id)
                 {
-                    user.From = userFind.UserName;
-                    _context.SaveChangesAsync();
+                    if (user.From != null)
+                    {
+                        sbFrom.Append(user.UserName + ", \n" + userFind.UserName);
+                        user.From = sbFrom.ToString();
+                        _context.SaveChangesAsync();
+
+                    }
+                    else
+                    {
+                        user.From = userFind.UserName;
+                        _context.SaveChangesAsync();
+                    }
                 }
             }
 
-            user.MessageText = sb.ToString();
+            user.MessageText = sbText.ToString();
             _context.SaveChangesAsync();
 
            return RedirectToAction("AllChats");
@@ -209,6 +221,7 @@ namespace Social_Media_v3.Controllers
                 return NotFound();
             }
 
+
             var user_v3 = await _context.Users.FindAsync(id);
             if (user_v3 == null)
             {
@@ -253,7 +266,9 @@ namespace Social_Media_v3.Controllers
 
                 return RedirectToAction("ProfileIndex");
             }
-            return View(user_v3);
+
+            TempData["id"] = id;
+            return RedirectToAction("ProfileIndex");
         }
 
         // GET: User_v3/Delete/5
